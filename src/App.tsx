@@ -164,20 +164,92 @@ export default function App() {
           </div>
 
           {/* DEEL 2: KERNWAARDEN (DE 3 P's) */}
-          <div className="grid md:grid-cols-3 gap-8 mb-32">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6 mb-20">
             {[
-              { icon: <UserCheck size={32}/>, title: "Persoonlijk", desc: "Aanpak afgestemd op jouw doelen, leefstijl, voeding en plezier." },
-              { icon: <Flame size={32}/>, title: "Plezier", desc: "Elke sessie is anders. Variatie in elke les met jouw vaste trainer." },
-              { icon: <Shield size={32}/>, title: "Professioneel", desc: "Uitsluitend toegewijde, gediplomeerde professionals op de werkvloer." }
+              { icon: <UserCheck size={24}/>, title: "Persoonlijk", desc: "Aanpak afgestemd op jouw doelen, leefstijl, voeding en plezier." },
+              { icon: <Flame size={24}/>, title: "Plezier", desc: "Elke sessie is anders. Variatie in elke les met jouw vaste trainer." },
+              { icon: <Shield size={24}/>, title: "Professioneel", desc: "Uitsluitend toegewijde, gediplomeerde professionals op de werkvloer." }
             ].map((p, i) => (
-              <div key={i} className="bg-surface-low border border-surface-highest p-8 hover:border-primary-container transition-colors group">
-                <div className="text-primary-container mb-8 bg-surface-high w-16 h-16 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform">
+              <div key={i} className="bg-surface-low border border-surface-highest p-5 md:p-6 hover:border-primary-container transition-colors group">
+                <div className="text-primary-container mb-4 bg-surface-high w-12 h-12 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform">
                   {p.icon}
                 </div>
-                <h3 className="font-display text-2xl font-bold uppercase tracking-tight mb-4 text-on-surface">{p.title}</h3>
+                <h3 className="font-display text-lg md:text-xl font-bold uppercase tracking-tight mb-2 text-on-surface">{p.title}</h3>
                 <p className="text-machine-grey text-sm leading-relaxed">{p.desc}</p>
               </div>
             ))}
+          </div>
+
+          
+          {/* DEEL 2B: ONS AANBOD (Verplaatst) */}
+          <div id="ons-aanbod" className="mb-32 scroll-mt-24">
+
+          <div className="mb-8 md:mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+            <div>
+              <h2 className="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
+                Ons Aanbod
+              </h2>
+              <p className="text-machine-grey max-w-2xl leading-relaxed">Voor ieder doel de perfecte workout. Of je nu sterker wilt worden, je conditie wilt opbouwen of je techniek wilt aanscherpen: train op jouw eigen niveau, met deskundige begeleiding en een flinke dosis plezier.</p>
+            </div>
+            <div className="font-display text-primary-container text-lg md:text-xl font-bold uppercase tracking-widest md:text-right max-w-xs">
+              8 manieren om fitter te worden!
+            </div>
+          </div>
+
+          {/* Slider Layout Component */}
+          <div className="relative group/slider">
+            {/* Custom Navigation */}
+            <div className="absolute top-1/2 -translate-y-1/2 -left-4 xl:-left-12 z-20 opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300 hidden md:block">
+              <button 
+                onClick={() => slideOfferings("left")}
+                className="bg-surface-highest text-on-surface hover:bg-primary-container hover:text-white p-4 border border-outline-variant transition-colors"
+                aria-label="Scroll Links"
+              >
+                <ChevronLeft size={24} />
+              </button>
+            </div>
+            
+            <div className="absolute top-1/2 -translate-y-1/2 -right-4 xl:-right-12 z-20 opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300 hidden md:block">
+              <button 
+                onClick={() => slideOfferings("right")}
+                className="bg-surface-highest text-on-surface hover:bg-primary-container hover:text-white p-4 border border-outline-variant transition-colors"
+                aria-label="Scroll Rechts"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </div>
+
+            {/* Slider Track */}
+            <div 
+              ref={sliderRef}
+              className="flex overflow-x-auto gap-4 md:gap-6 lg:gap-8 snap-x snap-mandatory scroll-smooth pb-8 pt-4 px-2 -mx-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {OFFERINGS.map((item, idx) => (
+                <a href="#lesrooster" key={idx} className="group block relative overflow-hidden bg-surface border border-outline-variant aspect-[4/3] sm:aspect-square md:aspect-[4/3] flex flex-col justify-end flex-none w-[85vw] sm:w-[45vw] md:w-[40vw] lg:w-[280px] xl:w-[305px] snap-center shrink-0">
+                  {/* Background Image */}
+                  <div className="absolute inset-0 z-0">
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      className="w-full h-full object-cover grayscale opacity-60 mix-blend-luminosity group-hover:mix-blend-normal group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
+                    />
+                    {/* Brutalist Gradient Overlay to ensure text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-transparent mix-blend-multiply opacity-90 group-hover:opacity-70 transition-opacity duration-700"></div>
+                  </div>
+                  
+                  {/* Content Overlay */}
+                  <div className="relative z-10 border-l-4 border-primary-container m-4 bg-surface/90 backdrop-blur-[10px] p-4 group-hover:bg-surface group-hover:border-white transition-colors duration-300">
+                    <h3 className="font-display text-lg lg:text-xl font-bold uppercase tracking-tight text-on-surface leading-none">{item.title}</h3>
+                    <div className="mt-4 flex items-center gap-2 text-primary-container font-bold text-[10px] uppercase tracking-widest">
+                      <span>Bekijk Module</span>
+                      <ArrowRight size={14} className="group-hover:translate-x-1 group-hover:text-white transition-all" />
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        
           </div>
 
           {/* DEEL 3: UITGELICHT - OPRICHTER REX BUREMA */}
@@ -570,76 +642,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* ONS AANBOD */}
-      <section id="ons-aanbod" className="py-12 md:py-16 bg-surface-low">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="mb-8 md:mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
-            <div>
-              <h2 className="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
-                Ons Aanbod
-              </h2>
-              <p className="text-machine-grey max-w-2xl leading-relaxed">Voor ieder doel de perfecte workout. Of je nu sterker wilt worden, je conditie wilt opbouwen of je techniek wilt aanscherpen: train op jouw eigen niveau, met deskundige begeleiding en een flinke dosis plezier.</p>
-            </div>
-            <div className="font-display text-primary-container text-lg md:text-xl font-bold uppercase tracking-widest md:text-right max-w-xs">
-              8 manieren om fitter te worden!
-            </div>
-          </div>
-
-          {/* Slider Layout Component */}
-          <div className="relative group/slider">
-            {/* Custom Navigation */}
-            <div className="absolute top-1/2 -translate-y-1/2 -left-4 xl:-left-12 z-20 opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300 hidden md:block">
-              <button 
-                onClick={() => slideOfferings("left")}
-                className="bg-surface-highest text-on-surface hover:bg-primary-container hover:text-white p-4 border border-outline-variant transition-colors"
-                aria-label="Scroll Links"
-              >
-                <ChevronLeft size={24} />
-              </button>
-            </div>
-            
-            <div className="absolute top-1/2 -translate-y-1/2 -right-4 xl:-right-12 z-20 opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300 hidden md:block">
-              <button 
-                onClick={() => slideOfferings("right")}
-                className="bg-surface-highest text-on-surface hover:bg-primary-container hover:text-white p-4 border border-outline-variant transition-colors"
-                aria-label="Scroll Rechts"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </div>
-
-            {/* Slider Track */}
-            <div 
-              ref={sliderRef}
-              className="flex overflow-x-auto gap-4 md:gap-6 lg:gap-8 snap-x snap-mandatory scroll-smooth pb-8 pt-4 px-2 -mx-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-            >
-              {OFFERINGS.map((item, idx) => (
-                <a href="#lesrooster" key={idx} className="group block relative overflow-hidden bg-surface border border-outline-variant aspect-[4/3] sm:aspect-square md:aspect-[4/3] flex flex-col justify-end flex-none w-[85vw] sm:w-[45vw] md:w-[40vw] lg:w-[280px] xl:w-[305px] snap-center shrink-0">
-                  {/* Background Image */}
-                  <div className="absolute inset-0 z-0">
-                    <img 
-                      src={item.image} 
-                      alt={item.title} 
-                      className="w-full h-full object-cover grayscale opacity-60 mix-blend-luminosity group-hover:mix-blend-normal group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
-                    />
-                    {/* Brutalist Gradient Overlay to ensure text readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-transparent mix-blend-multiply opacity-90 group-hover:opacity-70 transition-opacity duration-700"></div>
-                  </div>
-                  
-                  {/* Content Overlay */}
-                  <div className="relative z-10 border-l-4 border-primary-container m-4 bg-surface/90 backdrop-blur-[10px] p-4 group-hover:bg-surface group-hover:border-white transition-colors duration-300">
-                    <h3 className="font-display text-lg lg:text-xl font-bold uppercase tracking-tight text-on-surface leading-none">{item.title}</h3>
-                    <div className="mt-4 flex items-center gap-2 text-primary-container font-bold text-[10px] uppercase tracking-widest">
-                      <span>Bekijk Module</span>
-                      <ArrowRight size={14} className="group-hover:translate-x-1 group-hover:text-white transition-all" />
-                    </div>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* TEASER NIEUW PAND */}
       <section id="nieuw-pand-teaser" className="py-24 md:py-32 bg-surface border-b border-t border-surface-highest relative overflow-hidden">
