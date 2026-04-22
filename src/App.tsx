@@ -2,16 +2,16 @@ import { useState, useRef } from "react";
 import { 
   Shield, Dumbbell, HeartPulse, Flame, Activity, Clock, UserCheck, 
   ArrowRight, MapPin, Mail, Phone, Menu, X, Instagram, Facebook, Linkedin, Map,
-  ChevronLeft, ChevronRight, Star
+  ChevronLeft, ChevronRight, Star, Plus
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#home" },
   { label: "Ons Aanbod", href: "#ons-aanbod" },
-  { label: "Lesrooster", href: "#lesrooster" },
-  { label: "Over Word Fitter", href: "#over" },
+  { label: "Over Word Fitter", href: "#het-team" },
   { label: "Onze prijzen", href: "#prijzen" },
+  { label: "Lesrooster", href: "#lesrooster" },
   { label: "Contact", href: "#contact" }
 ];
 
@@ -42,28 +42,39 @@ export default function App() {
     <div className="min-h-screen bg-surface font-sans text-on-surface selection:bg-primary-container selection:text-white">
       
       {/* NAVBAR */}
-      <nav className="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-[20px] border-b border-outline-variant">
+      <nav className="fixed top-0 w-full z-50 bg-primary-container/95 backdrop-blur-[20px] border-b border-black/10 shadow-lg">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
           <a href="#home" className="flex items-center">
-            <img src="/images/logo.png" alt="Word Fitter Logo" className="h-10 md:h-12 object-contain" />
+            <img 
+              src="/images/logo.png" 
+              alt="Word Fitter Logo" 
+              className="h-10 md:h-12 object-contain"
+              style={{ filter: "drop-shadow(0 0 10px rgba(255,255,255,0.9)) drop-shadow(0 0 2px rgba(255,255,255,0.6))" }}
+            />
           </a>
           
           {/* Desktop Nav */}
-          <div className="hidden md:flex gap-8 items-center">
+          <div className="hidden md:flex gap-4 lg:gap-6 items-center">
             {NAV_ITEMS.map((item) => (
               <a 
                 key={item.label} 
                 href={item.href}
-                className="text-sm font-semibold uppercase tracking-widest text-machine-grey hover:text-on-surface transition-colors"
+                className="text-xs lg:text-sm font-bold uppercase tracking-widest text-white hover:text-white/80 hover:underline decoration-2 underline-offset-4 transition-all"
               >
                 {item.label}
               </a>
             ))}
+            <a 
+              href="#contact"
+              className="ml-2 lg:ml-4 bg-white text-primary-container px-4 py-2 lg:px-6 lg:py-3 font-bold uppercase tracking-widest text-xs lg:text-sm hover:opacity-90 shadow-md transition-opacity"
+            >
+              Boek Proefles
+            </a>
           </div>
 
           {/* Mobile Toggle */}
           <button 
-            className="md:hidden text-on-surface"
+            className="md:hidden text-white drop-shadow-md"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -72,17 +83,24 @@ export default function App() {
 
         {/* Mobile Nav Drawer */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-surface-low border-b border-outline-variant flex flex-col px-6 py-4 shadow-[0_40px_40px_rgba(27,27,27,0.4)]">
+          <div className="md:hidden absolute top-full left-0 w-full bg-primary-container border-t border-white/20 flex flex-col px-6 py-4 shadow-[0_40px_40px_rgba(0,0,0,0.6)]">
             {NAV_ITEMS.map((item) => (
               <a 
                 key={item.label} 
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className="py-4 text-sm font-bold uppercase tracking-widest border-b border-surface-high last:border-0"
+                className="py-4 text-sm font-bold uppercase tracking-widest text-white border-b border-white/20"
               >
                 {item.label}
               </a>
             ))}
+            <a 
+              href="#contact"
+              onClick={() => setIsMenuOpen(false)}
+              className="mt-6 mb-2 bg-white text-primary-container text-center py-4 font-bold uppercase tracking-widest text-sm shadow-md"
+            >
+              Boek Proefles
+            </a>
           </div>
         )}
       </nav>
@@ -107,17 +125,16 @@ export default function App() {
 
         <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center text-center">
           <div className="max-w-5xl flex flex-col items-center">
-            {/* Rode branding streep nu als subtiel element erboven i.p.v. aan de zijkant */}
-            <div className="w-16 h-1.5 bg-primary-container mb-8"></div>
             
-            <p className="font-sans font-bold text-primary-container uppercase tracking-[0.2em] mb-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              Word Fitter Personal Training Groningen
-            </p>
-            <h1 className="font-display uppercase text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] font-extrabold leading-tight sm:leading-[1.0] tracking-tight mb-8 text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] break-words">
-              Doelgericht trainen met ruimte voor <span className="text-primary-container">gezelligheid.</span>
+            <h1 className="font-display uppercase text-5xl sm:text-7xl lg:text-[7rem] font-extrabold leading-tight sm:leading-[1.0] tracking-tight mb-6 text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] break-words">
+              <span className="text-[1.15em] block">
+                <span className="text-black" style={{ WebkitTextStroke: "2px white", textShadow: "0 0 8px rgba(255,255,255,0.6)" }}>W</span><span className="text-primary-container" style={{ WebkitTextStroke: "2px white", textShadow: "0 0 8px rgba(255,255,255,0.6)" }}>ORD</span>{' '}
+                <span className="text-black" style={{ WebkitTextStroke: "2px white", textShadow: "0 0 8px rgba(255,255,255,0.6)" }}>F</span><span className="text-primary-container" style={{ WebkitTextStroke: "2px white", textShadow: "0 0 8px rgba(255,255,255,0.6)" }}>ITTER</span>
+              </span>
+              <span className="text-white text-[0.6em] block mt-2 sm:mt-4">GRONINGEN</span>
             </h1>
-            <p className="text-white/95 text-lg md:text-xl max-w-3xl mx-auto mb-10 font-sans leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] font-medium">
-              Bij Word Fitter werken we serieus aan jouw doelen, maar vergeten we nooit het plezier. Ontdek dé kleinschalige sportstudio in Groningen waar professionele begeleiding en een vertrouwde sfeer hand in hand gaan. Voor iedereen die écht fit wil worden, zonder de anonimiteit van een grote keten.
+            <p className="text-white/95 text-xl md:text-2xl max-w-3xl mx-auto mb-10 font-sans tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] font-medium">
+              Personal Training & Kleinschalige Groepslessen
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -139,7 +156,7 @@ export default function App() {
       </section>
 
       {/* OVER WORD FITTER (REBUILT COMPREHENSIVE SECTION) */}
-      <section id="over" className="py-24 md:py-32 bg-surface text-on-surface border-t border-b border-surface-highest">
+      <section id="over" className="pt-24 md:pt-32 pb-12 md:pb-16 bg-surface text-on-surface border-t border-b border-surface-highest">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           
           {/* DEEL 1: INTRO & MISSIE */}
@@ -164,7 +181,7 @@ export default function App() {
           </div>
 
           {/* DEEL 2: KERNWAARDEN (DE 3 P's) */}
-          <div className="grid md:grid-cols-3 gap-4 md:gap-6 mb-20">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6 mb-16 md:mb-24">
             {[
               { icon: <UserCheck size={24}/>, title: "Persoonlijk", desc: "Aanpak afgestemd op jouw doelen, leefstijl, voeding en plezier." },
               { icon: <Flame size={24}/>, title: "Plezier", desc: "Elke sessie is anders. Variatie in elke les met jouw vaste trainer." },
@@ -182,7 +199,7 @@ export default function App() {
 
           
           {/* DEEL 2B: ONS AANBOD (Verplaatst) */}
-          <div id="ons-aanbod" className="mb-32 scroll-mt-24">
+          <div id="ons-aanbod" className="scroll-mt-24 pt-16 md:pt-24 border-t border-surface-highest">
 
           <div className="mb-8 md:mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
             <div>
@@ -252,32 +269,44 @@ export default function App() {
         
           </div>
 
+        </div>
+      </section>
+
+      {/* HET TEAM (REX & TRAINERS) */}
+      <section id="het-team" className="pt-16 md:pt-20 pb-24 md:pb-32 bg-surface text-on-surface border-t border-surface-highest">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          
+          <div className="text-center mb-16 md:mb-24">
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-on-surface">
+              De gezichten achter Word Fitter
+            </h2>
+          </div>
+
           {/* DEEL 3: UITGELICHT - OPRICHTER REX BUREMA */}
-          <div className="bg-surface-high border border-outline-variant p-8 md:p-12 lg:p-16 mb-32 relative overflow-hidden group">
+          <div className="bg-surface-high border border-outline-variant p-8 md:p-12 lg:p-16 mb-24 md:mb-32 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-container opacity-5 rounded-full blur-[100px] pointer-events-none"></div>
-            <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center relative z-10">
-              <div className="lg:col-span-5 relative">
-                <div className="aspect-square bg-surface border border-surface-highest relative w-full">
-                  <div className="absolute inset-0 bg-[url('/images/foto-rex.jpg')] bg-cover bg-center top-0 grayscale opacity-80 group-hover:grayscale-0 transition-all duration-700"></div>
-                </div>
-                {/* On mobile, pulled slightly up to overlap bottom edge but leaving face visible. On desktop, stays inside the image. */}
-                <div className="relative -mt-16 mx-4 z-10 lg:absolute lg:bottom-6 lg:left-6 lg:right-6 lg:mt-0 lg:mx-0 bg-surface/90 backdrop-blur-[5px] p-6 border-l-4 border-primary-container shadow-xl lg:shadow-none">
-                  <div className="font-display font-black uppercase text-2xl">Rex Burema</div>
-                  <div className="text-primary-container text-xs font-bold uppercase tracking-widest mt-2">Founder / Head Coach</div>
+            <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-stretch relative z-10">
+              {/* LINKER KANT: FOTO */}
+              <div className="shrink-0 flex justify-center w-full md:w-[280px] lg:w-[340px]">
+                <div className="w-[240px] h-[240px] md:w-full md:h-auto md:flex-1 rounded-[12px] overflow-hidden bg-surface-highest border border-surface-highest relative shadow-2xl mb-4 md:mb-0">
+                  <div className="absolute inset-0 bg-[url('/images/foto-rex.jpg')] bg-cover bg-[center_top] grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"></div>
                 </div>
               </div>
-              <div className="lg:col-span-7">
-                <div className="font-sans font-bold text-machine-grey uppercase tracking-widest mb-4 flex items-center gap-4">
-                  <span className="w-8 h-[2px] bg-primary"></span>
-                  The Operator
+
+              {/* RECHTER KANT: INFORMATIE */}
+              <div className="flex-1 flex flex-col justify-center text-center md:text-left text-on-surface w-full py-2">
+                <div className="mb-6 border-b border-surface-highest pb-4">
+                  <h3 className="font-display font-black uppercase text-3xl md:text-4xl text-on-surface">Rex Burema</h3>
+                  <div className="text-primary-container text-sm md:text-base font-bold uppercase tracking-widest mt-1">— Oprichter</div>
                 </div>
-                <h3 className="font-display text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-8 text-on-surface leading-tight">
+
+                <h4 className="font-display text-2xl lg:text-3xl font-black uppercase tracking-tighter mb-4 text-on-surface leading-tight">
                   Levenslange Passie voor Kracht & Vechtsport.
-                </h3>
-                <p className="text-machine-grey leading-relaxed mb-10 text-lg">
-                  Rex combineert tientallen jaren aan "in-the-trenches" ervaring op de mat met diepgaande theoretische kennis.
+                </h4>
+                <p className="text-machine-grey leading-relaxed mb-8 text-base lg:text-lg">
+                  Rex combineert jarenlange praktijkervaring op de sportvloer met een flinke dosis vakkennis en een nuchtere, persoonlijke aanpak.
                 </p>
-                <div className="grid sm:grid-cols-2 gap-8 mb-8">
+                <div className="grid sm:grid-cols-2 gap-6 mb-4 text-left">
                   <div>
                     <h4 className="font-bold text-on-surface text-xs uppercase tracking-widest mb-4 border-b border-surface-highest pb-3">Certificeringen</h4>
                     <ul className="text-sm text-machine-grey space-y-3">
@@ -299,7 +328,7 @@ export default function App() {
           </div>
 
           {/* DEEL 4: TEAM GRID (SMOELENBOEK) */}
-          <div className="mb-32">
+          <div className="mb-0">
             <div className="flex flex-wrap justify-between items-end mb-12 border-b border-outline-variant pb-6 gap-4">
               <h3 className="font-display text-4xl md:text-5xl font-black uppercase tracking-tighter text-on-surface">
                 Het Team
@@ -311,7 +340,7 @@ export default function App() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
               {[
-                { name: "Rex", role: "PT & Groepslessen", classes: "Kickboxing, Krachttraining, Pencak Silat", char: "Sadist, Motiverend, Humor", quote: "Aan de bak!", image: "/images/foto-rex.jpg" },
+                { name: "Rex", role: "PT & Groepslessen", classes: "Kickboxing, Krachttraining, Pencak Silat", char: "Motiverend, Humor", quote: "Aan de bak!", image: "/images/foto-rex.jpg" },
                 { name: "Marleen", role: "PT & Groepslessen", classes: "Strength & Conditioning", char: "Empathisch, Kan Frans praten, Humor", quote: "Oui, harder!", image: "/images/marleen.jpg" },
                 { name: "Martijn", role: "PT & Groepslessen", classes: "Strength & Cond, Kickboksen, Sport Silat", char: "Aardige jongen, Beest, Krachtig", quote: "Gas erop.", image: "/images/martijn.jpg" },
                 { name: "Johan", role: "PT & Groepslessen", classes: "Triatlon, Kracht, Hardloopscholing", char: "Blijft doorgaan, Motiverend, Sportief", quote: "Nog één rep.", image: "/images/johan.png" },
@@ -369,7 +398,7 @@ export default function App() {
               Tarieven & Lidmaatschappen
             </h2>
             <p className="text-machine-grey max-w-xl mx-auto">
-              Selecteer jouw output niveau. Transparante prijzen, geen verborgen kosten.
+              Kies de vorm die bij jouw doelen past. Transparante prijzen, zodat jij je volledig kunt focussen op de training.
             </p>
           </div>
 
@@ -576,6 +605,31 @@ export default function App() {
               </button>
             </div>
           </div>
+
+          {/* REFERRAL BLOCK: Bring a Friend */}
+          <div className="mt-16 bg-surface p-6 md:px-8 md:py-6 rounded-2xl border border-primary/20 shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex-1">
+              <h3 className="font-display text-xl md:text-2xl font-black uppercase tracking-tighter mb-2 text-on-surface">
+                Deel de motivatie, pak de beloning!
+              </h3>
+              <p className="text-machine-grey leading-snug max-w-2xl text-sm md:text-base">
+                Ken jij iemand die wel een boost kan gebruiken? Nodig een vriend of collega uit voor een gratis proefles. Besluit diegene om lid te worden? Dan sporten jullie <strong className="text-on-surface">allebei een week lang helemaal gratis</strong>!
+              </p>
+            </div>
+            <div className="w-full md:w-auto shrink-0 max-w-full">
+              <a 
+                href="https://api.whatsapp.com/send?text=Hey!%20Ik%20sport%20bij%20Word%20Fitter%20en%20dacht%20dat%20dit%20echt%20iets%20voor%20jou%20zou%20zijn.%20Als%20je%20via%20mij%20een%20proefles%20boekt%20en%20lid%20wordt,%20sporten%20we%20allebei%20een%20week%20gratis!%20Check%20de%20site:%20wordfitter.nl" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 sm:gap-3 w-full max-w-full box-border md:w-auto text-center py-3 px-4 sm:py-3.5 sm:px-6 bg-[#25D366] text-white font-bold uppercase tracking-widest hover:bg-[#1DA851] transition-colors rounded-xl shadow-md whitespace-normal text-[13px] sm:text-sm leading-tight"
+              >
+                <span>Stuur een uitnodiging via WhatsApp</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16" className="shrink-0">
+                  <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c-.003 1.396.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -717,8 +771,142 @@ export default function App() {
         </div>
       </section>
 
+      {/* VEELGESTELDE VRAGEN */}
+      <section id="faq" className="bg-surface pt-24 md:pt-32 pb-12 md:pb-16 border-t border-surface-highest">
+        <div className="max-w-4xl mx-auto px-6 md:px-12">
+          <div className="mb-16">
+            <h2 className="font-display text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4 text-on-surface">
+              Veelgestelde Vragen
+            </h2>
+            <div className="w-16 h-1 bg-primary mb-6"></div>
+          </div>
+          
+          <div className="space-y-2">
+            {/* Vraag 1 */}
+            <details className="group bg-surface-low border border-outline-variant transition-colors hover:border-primary-container open:bg-surface-high">
+              <summary className="flex items-center justify-between cursor-pointer px-6 py-3 min-h-[44px] list-none [&::-webkit-details-marker]:hidden">
+                <span className="font-display font-bold uppercase tracking-tight text-lg text-on-surface leading-tight pr-8">
+                  Ik ben geen topsporter, is Word Fitter wel iets voor mij?
+                </span>
+                <span className="text-primary-container shrink-0 transition-transform duration-300 ease-in-out group-open:rotate-45">
+                  <Plus size={24} />
+                </span>
+              </summary>
+              <div className="px-6 pb-4 text-machine-grey leading-snug">
+                Absoluut! Hoewel we soms een wat fanatiek imago hebben, staan wij juist voor 'professionele gezelligheid'. We vinden het belangrijk dat iedereen op zijn eigen niveau kan trainen. Of je nu net begint of al jaren sport: onze trainers passen de oefeningen en het niveau aan jouw mogelijkheden aan. Je bent van harte welkom!
+              </div>
+            </details>
+
+            {/* Vraag 2 */}
+            <details className="group bg-surface-low border border-outline-variant transition-colors hover:border-primary-container open:bg-surface-high">
+              <summary className="flex items-center justify-between cursor-pointer px-6 py-3 min-h-[44px] list-none [&::-webkit-details-marker]:hidden">
+                <span className="font-display font-bold uppercase tracking-tight text-lg text-on-surface leading-tight pr-8">
+                  Ik heb een drukke baan, hoe combineer ik dit met trainen?
+                </span>
+                <span className="text-primary-container shrink-0 transition-transform duration-300 ease-in-out group-open:rotate-45">
+                  <Plus size={24} />
+                </span>
+              </summary>
+              <div className="px-6 pb-4 text-machine-grey leading-snug">
+                Veel van onze leden zijn werkende professionals tussen de 30 en 50 jaar, dus we begrijpen dat tijd schaars is. Omdat we in kleine groepen trainen, heb je bij ons geen wachttijden en train je uiterst efficiënt. Daarnaast werken we met een reserveringsapp met een 8-uur annuleringsregel. Klinkt streng, maar onze leden ervaren dit als de perfecte 'stok achter de deur' om echt tijd voor zichzelf vrij te maken in een drukke agenda!
+              </div>
+            </details>
+
+            {/* Vraag 3 */}
+            <details className="group bg-surface-low border border-outline-variant transition-colors hover:border-primary-container open:bg-surface-high">
+              <summary className="flex items-center justify-between cursor-pointer px-6 py-3 min-h-[44px] list-none [&::-webkit-details-marker]:hidden">
+                <span className="font-display font-bold uppercase tracking-tight text-lg text-on-surface leading-tight pr-8">
+                  Welke sporten en trainingen kan ik bij jullie doen?
+                </span>
+                <span className="text-primary-container shrink-0 transition-transform duration-300 ease-in-out group-open:rotate-45">
+                  <Plus size={24} />
+                </span>
+              </summary>
+              <div className="px-6 pb-4 text-machine-grey leading-snug">
+                Wij zijn geen standaard sportschool, maar een persoonlijke studio met specifieke focus. Je kunt bij ons terecht voor Personal Training (1-op-1) en functionele fitness (zoals Hyrox en conditioning). Daarnaast zijn we gespecialiseerd in vechtsporten. Alles gebeurt onder professionele begeleiding.
+              </div>
+            </details>
+
+            {/* Vraag 4 */}
+            <details className="group bg-surface-low border border-outline-variant transition-colors hover:border-primary-container open:bg-surface-high">
+              <summary className="flex items-center justify-between cursor-pointer px-6 py-3 min-h-[44px] list-none [&::-webkit-details-marker]:hidden">
+                <span className="font-display font-bold uppercase tracking-tight text-lg text-on-surface leading-tight pr-8">
+                  Waarom zou ik voor Word Fitter kiezen en niet voor een grote (budget) keten?
+                </span>
+                <span className="text-primary-container shrink-0 transition-transform duration-300 ease-in-out group-open:rotate-45">
+                  <Plus size={24} />
+                </span>
+              </summary>
+              <div className="px-6 pb-4 text-machine-grey leading-snug">
+                Bij grote ketens ben je vaak een nummertje en is het lastig om goede begeleiding te krijgen. Wij kiezen bewust voor een kleinschalige aanpak waarbij de trainers hun leden écht kennen. Ons onderscheidend vermogen zit in de combinatie van een nette sportschool met extra goede begeleiding, techniekcorrectie en een fantastisch community gevoel. Bij ons draait het om kwaliteit, discipline en plezier.
+              </div>
+            </details>
+
+            {/* Vraag 5 */}
+            <details className="group bg-surface-low border border-outline-variant transition-colors hover:border-primary-container open:bg-surface-high">
+              <summary className="flex items-center justify-between cursor-pointer px-6 py-3 min-h-[44px] list-none [&::-webkit-details-marker]:hidden">
+                <span className="font-display font-bold uppercase tracking-tight text-lg text-on-surface leading-tight pr-8">
+                  Ik heb een (oude) blessure, kan ik toch meedoen?
+                </span>
+                <span className="text-primary-container shrink-0 transition-transform duration-300 ease-in-out group-open:rotate-45">
+                  <Plus size={24} />
+                </span>
+              </summary>
+              <div className="px-6 pb-4 text-machine-grey leading-snug">
+                Zeker weten. Omdat we in kleine groepen trainen en onze trainers veel kennis van het menselijk lichaam hebben, kunnen we oefeningen altijd aanpassen. Geef het voor de les even aan, dan zorgen wij voor een veilig en effectief alternatief zodat jij gewoon lekker aan de bak kunt.
+              </div>
+            </details>
+
+            {/* Vraag 6 */}
+            <details className="group bg-surface-low border border-outline-variant transition-colors hover:border-primary-container open:bg-surface-high">
+              <summary className="flex items-center justify-between cursor-pointer px-6 py-3 min-h-[44px] list-none [&::-webkit-details-marker]:hidden">
+                <span className="font-display font-bold uppercase tracking-tight text-lg text-on-surface leading-tight pr-8">
+                  Wat moet ik meenemen naar een proefles?
+                </span>
+                <span className="text-primary-container shrink-0 transition-transform duration-300 ease-in-out group-open:rotate-45">
+                  <Plus size={24} />
+                </span>
+              </summary>
+              <div className="px-6 pb-4 text-machine-grey leading-snug">
+                Eigenlijk heel simpel: makkelijk zittende binnen-sportkleding, een schone handdoek en een bidon met water. Wil je meedoen met een kickboksles? Geen zorgen, wij hebben leenhandschoenen en scheenbeschermers voor je klaarliggen!
+              </div>
+            </details>
+
+            {/* Vraag 7 */}
+            <details className="group bg-surface-low border border-outline-variant transition-colors hover:border-primary-container open:bg-surface-high">
+              <summary className="flex items-center justify-between cursor-pointer px-6 py-3 min-h-[44px] list-none [&::-webkit-details-marker]:hidden">
+                <span className="font-display font-bold uppercase tracking-tight text-lg text-on-surface leading-tight pr-8">
+                  Kan ik me na het sporten omkleden en douchen?
+                </span>
+                <span className="text-primary-container shrink-0 transition-transform duration-300 ease-in-out group-open:rotate-45">
+                  <Plus size={24} />
+                </span>
+              </summary>
+              <div className="px-6 pb-4 text-machine-grey leading-snug">
+                Ja, we hebben nette kleedkamers en douches beschikbaar. Veel van onze leden sporten voor hun werk of even tussendoor, dus we zorgen ervoor dat je daarna weer fris en fruitig op kantoor kunt verschijnen.
+              </div>
+            </details>
+
+            {/* Vraag 8 */}
+            <details className="group bg-surface-low border border-outline-variant transition-colors hover:border-primary-container open:bg-surface-high">
+              <summary className="flex items-center justify-between cursor-pointer px-6 py-3 min-h-[44px] list-none [&::-webkit-details-marker]:hidden">
+                <span className="font-display font-bold uppercase tracking-tight text-lg text-on-surface leading-tight pr-8">
+                  Zit ik direct aan een lang jaarcontract vast?
+                </span>
+                <span className="text-primary-container shrink-0 transition-transform duration-300 ease-in-out group-open:rotate-45">
+                  <Plus size={24} />
+                </span>
+              </summary>
+              <div className="px-6 pb-4 text-machine-grey leading-snug">
+                Nee hoor, we houden niet van kleine lettertjes of wurgcontracten. Naast onze voordelige langere abonnementen bieden we ook gewoon flexibele opties en rittenkaarten aan. Zo kies je altijd de vorm die het beste bij jouw ritme en doelen past.
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
       {/* AFSLUITING */}
-      <section id="afsluiting" className="bg-surface pb-12 pt-12 md:pt-24 border-t border-surface-highest">
+      <section id="afsluiting" className="bg-surface pb-12 pt-4 md:pt-8">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
 {/* DEEL 5: CALL-TO-ACTION (PROEFLES) */}
           <div className="bg-primary-container text-white p-10 md:p-16 lg:p-24 text-center transform hover:scale-[1.01] transition-transform duration-500 shadow-[0_20px_50px_rgba(161,29,29,0.3)] relative overflow-hidden">
