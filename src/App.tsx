@@ -33,6 +33,7 @@ export default function App() {
   const [scrollProgressTemp, setScrollProgressTemp] = useState(0);
   const [scrollProgressTeam, setScrollProgressTeam] = useState(0);
   const [scrollProgressOfferings, setScrollProgressOfferings] = useState(0);
+  const [scrollProgressReviews, setScrollProgressReviews] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const handleScrollProgress = (e: React.UIEvent<HTMLDivElement>, setProgress: React.Dispatch<React.SetStateAction<number>>) => {
@@ -213,7 +214,7 @@ export default function App() {
 
           
           {/* DEEL 2B: ONS AANBOD (Verplaatst) */}
-          <div id="ons-aanbod" className="scroll-mt-24 pt-16 md:pt-24 border-t border-surface-highest">
+          <div id="ons-aanbod" className="scroll-mt-24 pt-12 md:pt-16 border-t border-surface-highest">
 
           <div className="mb-8 md:mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
             <div>
@@ -299,7 +300,7 @@ export default function App() {
       </section>
 
       {/* HET TEAM (REX & TRAINERS) */}
-      <section id="het-team" className="pt-16 md:pt-20 pb-24 md:pb-32 bg-surface text-on-surface border-t border-surface-highest">
+      <section id="het-team" className="pt-16 md:pt-20 pb-12 md:pb-16 bg-surface text-on-surface border-t border-surface-highest">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           
           <div className="text-center mb-16 md:mb-24">
@@ -429,8 +430,139 @@ export default function App() {
           </div>
       </section>
 
+      {/* SOCIAL PROOF (GOOGLE REVIEWS) */}
+      <section className="pt-12 md:pt-16 pb-12 md:pb-16 bg-[#f8f9fa]">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="text-center mb-16 lg:mb-24">
+            <h2 className="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6 text-on-surface">
+              Ervaringen van onze sporters
+            </h2>
+          </div>
+
+          <div 
+            className="flex overflow-x-auto snap-x snap-mandatory pt-4 pb-8 -mx-6 px-6 md:mx-0 md:px-0 gap-6 lg:gap-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            onScroll={(e) => handleScrollProgress(e, setScrollProgressReviews)}
+          >
+            {/* Kaart 1 */}
+            <div className="bg-white p-6 rounded-[10px] shadow-sm hover:shadow-md transition-shadow duration-300 w-[85vw] sm:w-[320px] shrink-0 snap-center border border-gray-100 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg">M</div>
+                  <div className="font-bold text-gray-900 font-sans">Mathijs</div>
+                </div>
+                <div className="text-blue-600 font-bold font-sans text-sm bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center select-none" title="Google Review">G</div>
+              </div>
+              <div className="text-[#fbbc04] text-lg tracking-widest mb-3 select-none">★★★★★</div>
+              <p className="text-gray-700 text-[14px] leading-relaxed font-sans">
+                Bijna een jaar klant. Sfeervolle sportschool, kundige trainer en goede sfeer. Dikke aanrader als je resultaten wilt boeken en fitter wilt worden.
+              </p>
+            </div>
+
+            {/* Kaart 2 */}
+            <div className="bg-white p-6 rounded-[10px] shadow-sm hover:shadow-md transition-shadow duration-300 w-[85vw] sm:w-[320px] shrink-0 snap-center border border-gray-100 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-lg">B</div>
+                  <div className="font-bold text-gray-900 font-sans">Bowe</div>
+                </div>
+                <div className="text-blue-600 font-bold font-sans text-sm bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center select-none" title="Google Review">G</div>
+              </div>
+              <div className="text-[#fbbc04] text-lg tracking-widest mb-3 select-none">★★★★★</div>
+              <p className="text-gray-700 text-[14px] leading-relaxed font-sans">
+                Kleinschalige sportschool met heel veel variatie. Alles wordt professioneel en op een prettige manier gegeven. Sfeer is heel prettig en open.
+              </p>
+            </div>
+
+            {/* Kaart 3 */}
+            <div className="bg-white p-6 rounded-[10px] shadow-sm hover:shadow-md transition-shadow duration-300 w-[85vw] sm:w-[320px] shrink-0 snap-center border border-gray-100 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-lg">S</div>
+                  <div className="font-bold text-gray-900 font-sans">Stefan</div>
+                </div>
+                <div className="text-blue-600 font-bold font-sans text-sm bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center select-none" title="Google Review">G</div>
+              </div>
+              <div className="text-[#fbbc04] text-lg tracking-widest mb-3 select-none">★★★★★</div>
+              <p className="text-gray-700 text-[14px] leading-relaxed font-sans">
+                Super fijne trainer! Kent je persoonlijk en kan je motiveren. Echt een plek waar je als beginner of ervaren sporter fijn kan trainen!
+              </p>
+            </div>
+
+            {/* Kaart 4 */}
+            <div className="bg-white p-6 rounded-[10px] shadow-sm hover:shadow-md transition-shadow duration-300 w-[85vw] sm:w-[320px] shrink-0 snap-center border border-gray-100 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-lg">S</div>
+                  <div className="font-bold text-gray-900 font-sans">Sander</div>
+                </div>
+                <div className="text-blue-600 font-bold font-sans text-sm bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center select-none" title="Google Review">G</div>
+              </div>
+              <div className="text-[#fbbc04] text-lg tracking-widest mb-3 select-none">★★★★★</div>
+              <p className="text-gray-700 text-[14px] leading-relaxed font-sans">
+                Voor iedereen die sterker en fitter wil worden een aanrader. Goede begeleiding afgestemd op je doelen. In 1 jaar 18 kg afgevallen en veel sterker geworden!
+              </p>
+            </div>
+
+            {/* Kaart 5 */}
+            <div className="bg-white p-6 rounded-[10px] shadow-sm hover:shadow-md transition-shadow duration-300 w-[85vw] sm:w-[320px] shrink-0 snap-center border border-gray-100 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-pink-500 text-white flex items-center justify-center font-bold text-lg">E</div>
+                  <div className="font-bold text-gray-900 font-sans">Erica</div>
+                </div>
+                <div className="text-blue-600 font-bold font-sans text-sm bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center select-none" title="Google Review">G</div>
+              </div>
+              <div className="text-[#fbbc04] text-lg tracking-widest mb-3 select-none">★★★★★</div>
+              <p className="text-gray-700 text-[14px] leading-relaxed font-sans">
+                Dikke pluspunten: kleine groepen, persoonlijke sfeer en mega aardig personeel. Elke les mezelf uitdagen tot het uiterste. Dat is fijn!
+              </p>
+            </div>
+
+            {/* Kaart 6 */}
+            <div className="bg-white p-6 rounded-[10px] shadow-sm hover:shadow-md transition-shadow duration-300 w-[85vw] sm:w-[320px] shrink-0 snap-center border border-gray-100 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold text-lg">R</div>
+                  <div className="font-bold text-gray-900 font-sans">Ruben</div>
+                </div>
+                <div className="text-blue-600 font-bold font-sans text-sm bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center select-none" title="Google Review">G</div>
+              </div>
+              <div className="text-[#fbbc04] text-lg tracking-widest mb-3 select-none">★★★★★</div>
+              <p className="text-gray-700 text-[14px] leading-relaxed font-sans">
+                Komt de belofte na! Je wordt fitter en de sfeer is professioneel met een hoop ruimte voor plezier en humor.
+              </p>
+            </div>
+
+            {/* Kaart 7 */}
+            <div className="bg-white p-6 rounded-[10px] shadow-sm hover:shadow-md transition-shadow duration-300 w-[85vw] sm:w-[320px] shrink-0 snap-center border border-gray-100 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-lg">J</div>
+                  <div className="font-bold text-gray-900 font-sans">Joke</div>
+                </div>
+                <div className="text-blue-600 font-bold font-sans text-sm bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center select-none" title="Google Review">G</div>
+              </div>
+              <div className="text-[#fbbc04] text-lg tracking-widest mb-3 select-none">★★★★★</div>
+              <p className="text-gray-700 text-[14px] leading-relaxed font-sans">
+                Ze weten sport goed te combineren met gedragsverandering. Persoonlijk en professioneel. Ik verwijs regelmatig mensen vanuit mijn psychologenpraktijk door. Aanrader!
+              </p>
+            </div>
+          </div>
+
+          {/* Interactive Scroll Progress Indicator (Desktop & Mobile) */}
+          <div className="mt-8 flex justify-center w-full">
+            <div className="w-24 h-1.5 bg-gray-200 rounded-full overflow-hidden relative border border-gray-300">
+              <div 
+                className="absolute top-0 bottom-0 left-0 bg-primary-container rounded-full w-1/3 transition-transform duration-100 ease-out"
+                style={{ transform: `translateX(${scrollProgressReviews * 200}%)` }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ONZE PRIJZEN */}
-      <section id="prijzen" className="py-24 md:py-32 bg-surface-low">
+      <section id="prijzen" className="pt-12 md:pt-16 pb-24 md:pb-32 bg-surface-low">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16 lg:mb-24">
             <h2 className="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6">
@@ -442,7 +574,7 @@ export default function App() {
           </div>
 
           {/* Vaste Abonnementen (Deel 1 nu) */}
-          <div id="abonnementen" className="mb-24">
+          <div id="abonnementen" className="mb-8 md:mb-12">
             <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
               <div className="font-sans font-bold text-on-surface uppercase tracking-widest flex items-center gap-4">
                 <span className="w-8 h-[2px] bg-primary-container"></span>
@@ -497,7 +629,7 @@ export default function App() {
                     onScroll={(e) => handleScrollProgress(e, setScrollProgressMain)}
                   >
                     {/* 1x per week */}
-                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
+                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[75vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
                       <div className="mb-4">
                         <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Groepsles 1 x per week</h3>
                         <div className="font-display text-5xl font-black text-on-surface">€44<span className="text-2xl">,-</span><span className="text-sm text-machine-grey font-sans font-normal ml-2">/ mnd</span></div>
@@ -519,7 +651,7 @@ export default function App() {
                     </div>
 
                     {/* 2x per week */}
-                    <div className="bg-surface-high p-8 border border-primary-container flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary transition-all duration-300 group shadow-md hover:shadow-2xl relative transform md:-translate-y-4 hover:-translate-y-[5px] md:hover:-translate-y-[21px]">
+                    <div className="bg-surface-high p-8 border border-primary-container flex flex-col h-full min-w-[75vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary transition-all duration-300 group shadow-md hover:shadow-2xl relative transform md:-translate-y-4 hover:-translate-y-[5px] md:hover:-translate-y-[21px]">
                       <div className="absolute top-0 right-0 bg-primary-container text-white text-xs font-bold uppercase tracking-widest px-3 py-1 -translate-y-1/2 translate-x-[-24px]">
                         Meest gekozen!
                       </div>
@@ -544,7 +676,7 @@ export default function App() {
                     </div>
 
                     {/* Onbeperkt */}
-                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
+                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[75vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
                       <div className="mb-4">
                         <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Groepsles onbeperkt</h3>
                         <div className="font-display text-5xl font-black text-on-surface">€74<span className="text-2xl">,-</span><span className="text-sm text-machine-grey font-sans font-normal ml-2">/ mnd</span></div>
@@ -579,7 +711,7 @@ export default function App() {
                     onScroll={(e) => handleScrollProgress(e, setScrollProgressMain)}
                   >
                     {/* 1x per week */}
-                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
+                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[75vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
                       <div className="mb-4">
                         <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Groepsles 1 x per week</h3>
                         <div className="font-display text-5xl font-black text-on-surface">€41,50<span className="text-sm text-machine-grey font-sans font-normal ml-2">/ mnd</span></div>
@@ -601,7 +733,7 @@ export default function App() {
                     </div>
 
                     {/* 2x per week */}
-                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
+                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[75vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
                       <div className="mb-4">
                         <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Groepsles 2 x per week</h3>
                         <div className="font-display text-5xl font-black text-on-surface">€61,50<span className="text-sm text-machine-grey font-sans font-normal ml-2">/ mnd</span></div>
@@ -623,7 +755,7 @@ export default function App() {
                     </div>
 
                     {/* Onbeperkt (Highlighted bij 12 maanden) */}
-                    <div className="bg-surface-high p-8 border border-primary-container flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary transition-all duration-300 group shadow-md hover:shadow-2xl relative transform md:-translate-y-4 hover:-translate-y-[5px] md:hover:-translate-y-[21px]">
+                    <div className="bg-surface-high p-8 border border-primary-container flex flex-col h-full min-w-[75vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary transition-all duration-300 group shadow-md hover:shadow-2xl relative transform md:-translate-y-4 hover:-translate-y-[5px] md:hover:-translate-y-[21px]">
                       <div className="absolute top-0 right-0 bg-primary-container text-white text-xs font-bold uppercase tracking-widest px-3 py-1 -translate-y-1/2 translate-x-[-24px]">
                         Meeste voordeel!
                       </div>
@@ -673,7 +805,7 @@ export default function App() {
             onScroll={(e) => handleScrollProgress(e, setScrollProgressTemp)}
           >
             {/* Kaart 1: Weekkaart */}
-            <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
+            <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[75vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
               <div className="mb-4">
                 <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Weekkaart 7 x pwk sporten</h3>
                 <div className="font-display text-5xl font-black text-on-surface">€37,50</div>
@@ -695,7 +827,7 @@ export default function App() {
             </div>
 
             {/* Kaart 2: Losse les */}
-            <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
+            <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[75vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
               <div className="mb-4">
                 <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Losse les 1 x sporten</h3>
                 <div className="font-display text-5xl font-black text-on-surface">€16,50</div>
@@ -717,7 +849,7 @@ export default function App() {
             </div>
 
             {/* Kaart 3: Knipkaart */}
-            <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
+            <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[75vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
               <div className="mb-4">
                 <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Knipkaart 5 x sporten</h3>
                 <div className="font-display text-5xl font-black text-on-surface">€77,50<span className="text-2xl">,-</span></div>
@@ -767,7 +899,7 @@ export default function App() {
       </section>
 
       {/* LESROOSTER OVERZICHT */}
-      <section id="lesrooster" className="py-24 md:py-32">
+      <section id="lesrooster" className="pt-24 md:pt-32 pb-12 md:pb-16">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="mb-12 flex justify-between items-end">
             <h2 className="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter">
@@ -832,7 +964,7 @@ export default function App() {
       
 
       {/* TEASER NIEUW PAND */}
-      <section id="nieuw-pand-teaser" className="py-24 md:py-32 bg-surface border-b border-t border-surface-highest relative overflow-hidden">
+      <section id="nieuw-pand-teaser" className="pt-12 md:pt-16 pb-24 md:pb-32 bg-surface border-b border-t border-surface-highest relative overflow-hidden">
         {/* Sfeervol achtergrond raster voor het lab effect */}
         <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(var(--color-on-surface)_1px,transparent_1px),linear-gradient(90deg,var(--color-on-surface)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
 
@@ -905,7 +1037,7 @@ export default function App() {
       </section>
 
       {/* VEELGESTELDE VRAGEN */}
-      <section id="faq" className="bg-surface pt-24 md:pt-32 pb-12 md:pb-16 border-t border-surface-highest">
+      <section id="faq" className="bg-surface pt-12 md:pt-16 pb-12 md:pb-16 border-t border-surface-highest">
         <div className="max-w-4xl mx-auto px-6 md:px-12">
           <div className="mb-16">
             <h2 className="font-display text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4 text-on-surface">
