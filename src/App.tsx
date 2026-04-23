@@ -16,14 +16,14 @@ const NAV_ITEMS = [
 ];
 
 const OFFERINGS = [
-  { title: "Functional Training", image: "/images/functionaltraining.jpg" },
-  { title: "Krachttraining", image: "/images/krachttraining.jpg" },
-  { title: "Personal Training", image: "/images/personaltraining.jpg" },
-  { title: "Kickboksen", image: "/images/kickboksen.jpg" },
-  { title: "Kickboksen Beginners", image: "/images/kickboksenbeginner.jpg" },
-  { title: "Kickboksen & Silat", image: "/images/kickboksensilat.jpg" },
-  { title: "Vrij trainen", image: "/images/freegym.jpg" },
-  { title: "Jeugd", image: "/images/jeugd.png" },
+  { title: "Functional Training", image: "/functionaltraining.jpg" },
+  { title: "Krachttraining", image: "/krachttraining.jpg" },
+  { title: "Personal Training", image: "/personaltraining.jpg" },
+  { title: "Kickboksen", image: "/kickboksen.jpg" },
+  { title: "Kickboksen Beginners", image: "/kickboksenbeginner.jpg" },
+  { title: "Kickboksen & Silat", image: "/kickboksensilat.jpg" },
+  { title: "Vrij trainen", image: "/freegym.jpg" },
+  { title: "Jeugd", image: "/jeugd.png" },
 ];
 
 export default function App() {
@@ -69,7 +69,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
           <a href="#home" className="flex items-center">
             <img 
-              src="/images/logo.png" 
+              src="/logo.png" 
               alt="Word Fitter Logo" 
               className="h-10 md:h-12 object-contain"
               style={{ filter: "drop-shadow(0 0 10px rgba(255,255,255,0.9)) drop-shadow(0 0 2px rgba(255,255,255,0.6))" }}
@@ -139,7 +139,7 @@ export default function App() {
             playsInline 
             className="absolute inset-0 w-full h-full object-cover"
           >
-            <source src="/images/intro-video-wordfitter.mp4" type="video/mp4" />
+            <source src="/intro-video-wordfitter.mp4" type="video/mp4" />
           </video>
           {/* Gecentreerde overlay die de tekst in het midden perfect leesbaar houdt, terwijl zijkanten lichter blijven */}
           <div className="absolute inset-0 bg-black/50"></div>
@@ -324,7 +324,7 @@ export default function App() {
               {/* LINKER KANT: FOTO */}
               <div className="shrink-0 flex justify-center w-full md:w-[280px] lg:w-[340px]">
                 <div className="w-[240px] h-[240px] md:w-full md:h-auto md:flex-1 rounded-[12px] overflow-hidden bg-surface-highest border border-surface-highest relative shadow-2xl mb-4 md:mb-0">
-                  <div className="absolute inset-0 bg-[url('/images/foto-rex.jpg')] bg-cover bg-[center_top] grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"></div>
+                  <div className="absolute inset-0 bg-[url('/foto-rex.jpg')] bg-cover bg-[center_top] grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"></div>
                 </div>
               </div>
 
@@ -388,15 +388,15 @@ export default function App() {
               onScroll={(e) => handleScrollProgress(e, setScrollProgressTeam)}
             >
               {[
-                { name: "Rex", role: "PT & Groepslessen", classes: "Kickboxing, Krachttraining, Pencak Silat", char: "Motiverend, Humor", quote: "Aan de bak!", image: "/images/foto-rex.jpg" },
-                { name: "Marleen", role: "PT & Groepslessen", classes: "Strength & Conditioning", char: "Empathisch, Kan Frans praten, Humor", quote: "Oui, harder!", image: "/images/marleen.jpg" },
-                { name: "Martijn", role: "PT & Groepslessen", classes: "Strength & Cond, Kickboksen, Sport Silat", char: "Aardige jongen, Beest, Krachtig", quote: "Gas erop.", image: "/images/martijn.jpg" },
-                { name: "Johan", role: "PT & Groepslessen", classes: "Triatlon, Kracht, Hardloopscholing", char: "Blijft doorgaan, Motiverend, Sportief", quote: "Nog één rep.", image: "/images/johan.png" },
-                { name: "Thessa", role: "Groepslessen", classes: "Strength & Cond, Kickboksen, Sport Silat", char: "Sociaal, Killer, Humor", quote: "Handen hoog.", image: "/images/thessa.png" },
-                { name: "Dennis", role: "Groepslessen", classes: "Kickboksen", char: "Old school master, Hard, Vriendelijk", quote: "Focus en rust.", image: "/images/dennis.png" },
-                { name: "Eliska", role: "Groepslessen", classes: "Strength & Conditioning, Hyrox", char: "Tsjechische charme, Vrolijk", quote: "Let's go!", image: "/images/eliska.png" },
-                { name: "Kelly", role: "Groepslessen", classes: "Kickboxing, Strength & Performance", char: "Heavy Muscle, Recht door zee", quote: "Niet zeiken.", image: "/images/kelly.jpg" },
-                { name: "Kasper", role: "Box Coach & Groepslessen", classes: "Boxing, Kickboxing", char: "Gevoel voor taal, Inspirator", quote: "Vloeiend bewegen.", image: "/images/kasper.png" },
+                { name: "Rex", role: "PT & Groepslessen", classes: "Kickboxing, Krachttraining, Pencak Silat", char: "Motiverend, Humor", quote: "Aan de bak!", image: "/foto-rex.jpg" },
+                { name: "Marleen", role: "PT & Groepslessen", classes: "Strength & Conditioning", char: "Empathisch, Kan Frans praten, Humor", quote: "Oui, harder!", image: "/marleen.jpg" },
+                { name: "Martijn", role: "PT & Groepslessen", classes: "Strength & Cond, Kickboksen, Sport Silat", char: "Aardige jongen, Beest, Krachtig", quote: "Gas erop.", image: "/martijn.jpg" },
+                { name: "Johan", role: "PT & Groepslessen", classes: "Triatlon, Kracht, Hardloopscholing", char: "Blijft doorgaan, Motiverend, Sportief", quote: "Nog één rep.", image: "/johan.png" },
+                { name: "Thessa", role: "Groepslessen", classes: "Strength & Cond, Kickboksen, Sport Silat", char: "Sociaal, Killer, Humor", quote: "Handen hoog.", image: "/thessa.png" },
+                { name: "Dennis", role: "Groepslessen", classes: "Kickboksen", char: "Old school master, Hard, Vriendelijk", quote: "Focus en rust.", image: "/dennis.png" },
+                { name: "Eliska", role: "Groepslessen", classes: "Strength & Conditioning, Hyrox", char: "Tsjechische charme, Vrolijk", quote: "Let's go!", image: "/eliska.png" },
+                { name: "Kelly", role: "Groepslessen", classes: "Kickboxing, Strength & Performance", char: "Heavy Muscle, Recht door zee", quote: "Niet zeiken.", image: "/kelly.jpg" },
+                { name: "Kasper", role: "Box Coach & Groepslessen", classes: "Boxing, Kickboxing", char: "Gevoel voor taal, Inspirator", quote: "Vloeiend bewegen.", image: "/kasper.png" },
               ].map((member, i) => (
                 <div key={i} className="bg-surface-low border border-outline-variant p-6 lg:p-8 hover:border-primary-container hover:bg-surface transition-all duration-300 group flex flex-col h-full shadow-[0_10px_30px_rgba(27,27,27,0.2)] relative overflow-hidden min-w-[85vw] sm:min-w-[45vw] md:min-w-0 shrink-0 snap-center">
                   <div className="flex justify-between items-start mb-6 relative z-10">
@@ -1035,7 +1035,7 @@ export default function App() {
               {/* Foto 1 - Achterste foto */}
               <div className="absolute top-0 right-0 w-[80%] h-[80%] bg-surface-low border border-outline-variant overflow-hidden">
                 <img 
-                  src="/images/nieuw-pand-1.jpeg" 
+                  src="/nieuw-pand-1.jpeg" 
                   alt="Blauwdruk nieuw pand Word Fitter" 
                   className="w-full h-full object-cover grayscale opacity-70 mix-blend-luminosity group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-out"
                 />
@@ -1044,7 +1044,7 @@ export default function App() {
               {/* Foto 2 - Voorste overlappende foto */}
               <div className="absolute bottom-0 left-0 w-[60%] h-[60%] bg-surface border-t-8 border-r-8 border-surface overflow-hidden shadow-[20px_-20px_40px_rgba(27,27,27,0.6)]">
                 <img 
-                  src="/images/nieuw-pand-2.jpeg" 
+                  src="/nieuw-pand-2.jpeg" 
                   alt="Constructies nieuw pand Word Fitter" 
                   className="w-full h-full object-cover grayscale opacity-70 mix-blend-luminosity group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 delay-100 ease-out"
                 />
@@ -1341,7 +1341,7 @@ export default function App() {
             {/* Logo & Info */}
             <div className="md:col-span-1">
               <a href="#home" className="inline-block mb-6">
-                <img src="/images/logo.png" alt="Word Fitter Logo" className="h-10 md:h-12 object-contain" />
+                <img src="/logo.png" alt="Word Fitter Logo" className="h-10 md:h-12 object-contain" />
               </a>
               <p className="text-machine-grey text-sm mb-6 max-w-sm leading-relaxed">
                 Word Fitter Groningen. Serieus werken aan jouw fitheid, met oprechte aandacht en een flinke dosis werkplezier.
