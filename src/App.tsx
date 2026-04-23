@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { 
   Shield, Dumbbell, HeartPulse, Flame, Activity, Clock, UserCheck, 
   ArrowRight, MapPin, Mail, Phone, Menu, X, Instagram, Facebook, Linkedin, Map,
-  ChevronLeft, ChevronRight, Star, Plus
+  ChevronLeft, ChevronRight, Star, Plus, Check, Lock, MoveRight
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -16,20 +16,34 @@ const NAV_ITEMS = [
 ];
 
 const OFFERINGS = [
-  { title: "Functional Training", image: "/functionaltraining.jpg" },
-  { title: "Krachttraining", image: "/krachttraining.jpg" },
-  { title: "Personal Training", image: "/personaltraining.jpg" },
-  { title: "Kickboksen", image: "/kickboksen.jpg" },
-  { title: "Kickboksen Beginners", image: "/kickboksenbeginner.jpg" },
-  { title: "Kickboksen & Silat", image: "/kickboksensilat.jpg" },
-  { title: "Vrij trainen", image: "/freegym.jpg" },
-  { title: "Jeugd", image: "/jeugd.png" },
+  { title: "Functional Training", image: "/images/functionaltraining.jpg" },
+  { title: "Krachttraining", image: "/images/krachttraining.jpg" },
+  { title: "Personal Training", image: "/images/personaltraining.jpg" },
+  { title: "Kickboksen", image: "/images/kickboksen.jpg" },
+  { title: "Kickboksen Beginners", image: "/images/kickboksenbeginner.jpg" },
+  { title: "Kickboksen & Silat", image: "/images/kickboksensilat.jpg" },
+  { title: "Vrij trainen", image: "/images/freegym.jpg" },
+  { title: "Jeugd", image: "/images/jeugd.png" },
 ];
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [billingCycle, setBillingCycle] = useState<"6" | "12">("6");
+  const [scrollProgressMain, setScrollProgressMain] = useState(0);
+  const [scrollProgressTemp, setScrollProgressTemp] = useState(0);
+  const [scrollProgressTeam, setScrollProgressTeam] = useState(0);
+  const [scrollProgressOfferings, setScrollProgressOfferings] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
+
+  const handleScrollProgress = (e: React.UIEvent<HTMLDivElement>, setProgress: React.Dispatch<React.SetStateAction<number>>) => {
+    const el = e.currentTarget;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    if (maxScroll > 0) {
+      setProgress(el.scrollLeft / maxScroll);
+    } else {
+      setProgress(0);
+    }
+  };
 
   const slideOfferings = (direction: "left" | "right") => {
     if (sliderRef.current) {
@@ -46,7 +60,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
           <a href="#home" className="flex items-center">
             <img 
-              src="/logo.png" 
+              src="/images/logo.png" 
               alt="Word Fitter Logo" 
               className="h-10 md:h-12 object-contain"
               style={{ filter: "drop-shadow(0 0 10px rgba(255,255,255,0.9)) drop-shadow(0 0 2px rgba(255,255,255,0.6))" }}
@@ -116,7 +130,7 @@ export default function App() {
             playsInline 
             className="absolute inset-0 w-full h-full object-cover"
           >
-            <source src="/intro-video-wordfitter.mp4" type="video/mp4" />
+            <source src="/images/intro-video-wordfitter.mp4" type="video/mp4" />
           </video>
           {/* Gecentreerde overlay die de tekst in het midden perfect leesbaar houdt, terwijl zijkanten lichter blijven */}
           <div className="absolute inset-0 bg-black/50"></div>
@@ -215,6 +229,17 @@ export default function App() {
 
           {/* Slider Layout Component */}
           <div className="relative group/slider">
+
+            {/* Interactive Scroll Progress Indicator (All screens) */}
+            <div className="mb-6 flex justify-center">
+              <div className="w-24 h-1.5 bg-surface-highest rounded-full overflow-hidden relative border border-outline-variant/30">
+                <div 
+                  className="absolute top-0 bottom-0 left-0 bg-primary-container rounded-full w-1/2 transition-transform duration-100 ease-out"
+                  style={{ transform: `translateX(${scrollProgressOfferings * 100}%)` }}
+                />
+              </div>
+            </div>
+
             {/* Custom Navigation */}
             <div className="absolute top-1/2 -translate-y-1/2 -left-4 xl:-left-12 z-20 opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300 hidden md:block">
               <button 
@@ -239,6 +264,7 @@ export default function App() {
             {/* Slider Track */}
             <div 
               ref={sliderRef}
+              onScroll={(e) => handleScrollProgress(e, setScrollProgressOfferings)}
               className="flex overflow-x-auto gap-4 md:gap-6 lg:gap-8 snap-x snap-mandatory scroll-smooth pb-8 pt-4 px-2 -mx-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             >
               {OFFERINGS.map((item, idx) => (
@@ -289,7 +315,7 @@ export default function App() {
               {/* LINKER KANT: FOTO */}
               <div className="shrink-0 flex justify-center w-full md:w-[280px] lg:w-[340px]">
                 <div className="w-[240px] h-[240px] md:w-full md:h-auto md:flex-1 rounded-[12px] overflow-hidden bg-surface-highest border border-surface-highest relative shadow-2xl mb-4 md:mb-0">
-                  <div className="absolute inset-0 bg-[url('/foto-rex.jpg')] bg-cover bg-[center_top] grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"></div>
+                  <div className="absolute inset-0 bg-[url('/images/foto-rex.jpg')] bg-cover bg-[center_top] grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"></div>
                 </div>
               </div>
 
@@ -338,19 +364,32 @@ export default function App() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+            {/* Interactive Scroll Progress Indicator (Mobile) */}
+            <div className="md:hidden mb-6 flex justify-center">
+              <div className="w-16 h-1.5 bg-surface-highest rounded-full overflow-hidden relative border border-outline-variant/30">
+                <div 
+                  className="absolute top-0 bottom-0 left-0 bg-primary-container rounded-full w-1/2 transition-transform duration-100 ease-out"
+                  style={{ transform: `translateX(${scrollProgressTeam * 100}%)` }}
+                />
+              </div>
+            </div>
+
+            <div 
+              className="flex md:grid overflow-x-auto snap-x snap-mandatory pt-2 pb-8 -mx-6 px-6 md:mx-0 md:px-0 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+              onScroll={(e) => handleScrollProgress(e, setScrollProgressTeam)}
+            >
               {[
-                { name: "Rex", role: "PT & Groepslessen", classes: "Kickboxing, Krachttraining, Pencak Silat", char: "Motiverend, Humor", quote: "Aan de bak!", image: "/foto-rex.jpg" },
-                { name: "Marleen", role: "PT & Groepslessen", classes: "Strength & Conditioning", char: "Empathisch, Kan Frans praten, Humor", quote: "Oui, harder!", image: "/marleen.jpg" },
-                { name: "Martijn", role: "PT & Groepslessen", classes: "Strength & Cond, Kickboksen, Sport Silat", char: "Aardige jongen, Beest, Krachtig", quote: "Gas erop.", image: "/martijn.jpg" },
-                { name: "Johan", role: "PT & Groepslessen", classes: "Triatlon, Kracht, Hardloopscholing", char: "Blijft doorgaan, Motiverend, Sportief", quote: "Nog één rep.", image: "/johan.png" },
-                { name: "Thessa", role: "Groepslessen", classes: "Strength & Cond, Kickboksen, Sport Silat", char: "Sociaal, Killer, Humor", quote: "Handen hoog.", image: "/thessa.png" },
-                { name: "Dennis", role: "Groepslessen", classes: "Kickboksen", char: "Old school master, Hard, Vriendelijk", quote: "Focus en rust.", image: "/dennis.png" },
-                { name: "Eliska", role: "Groepslessen", classes: "Strength & Conditioning, Hyrox", char: "Tsjechische charme, Vrolijk", quote: "Let's go!", image: "/eliska.png" },
-                { name: "Kelly", role: "Groepslessen", classes: "Kickboxing, Strength & Performance", char: "Heavy Muscle, Recht door zee", quote: "Niet zeiken.", image: "/kelly.jpg" },
-                { name: "Kasper", role: "Box Coach & Groepslessen", classes: "Boxing, Kickboxing", char: "Gevoel voor taal, Inspirator", quote: "Vloeiend bewegen.", image: "/kasper.png" },
+                { name: "Rex", role: "PT & Groepslessen", classes: "Kickboxing, Krachttraining, Pencak Silat", char: "Motiverend, Humor", quote: "Aan de bak!", image: "/images/foto-rex.jpg" },
+                { name: "Marleen", role: "PT & Groepslessen", classes: "Strength & Conditioning", char: "Empathisch, Kan Frans praten, Humor", quote: "Oui, harder!", image: "/images/marleen.jpg" },
+                { name: "Martijn", role: "PT & Groepslessen", classes: "Strength & Cond, Kickboksen, Sport Silat", char: "Aardige jongen, Beest, Krachtig", quote: "Gas erop.", image: "/images/martijn.jpg" },
+                { name: "Johan", role: "PT & Groepslessen", classes: "Triatlon, Kracht, Hardloopscholing", char: "Blijft doorgaan, Motiverend, Sportief", quote: "Nog één rep.", image: "/images/johan.png" },
+                { name: "Thessa", role: "Groepslessen", classes: "Strength & Cond, Kickboksen, Sport Silat", char: "Sociaal, Killer, Humor", quote: "Handen hoog.", image: "/images/thessa.png" },
+                { name: "Dennis", role: "Groepslessen", classes: "Kickboksen", char: "Old school master, Hard, Vriendelijk", quote: "Focus en rust.", image: "/images/dennis.png" },
+                { name: "Eliska", role: "Groepslessen", classes: "Strength & Conditioning, Hyrox", char: "Tsjechische charme, Vrolijk", quote: "Let's go!", image: "/images/eliska.png" },
+                { name: "Kelly", role: "Groepslessen", classes: "Kickboxing, Strength & Performance", char: "Heavy Muscle, Recht door zee", quote: "Niet zeiken.", image: "/images/kelly.jpg" },
+                { name: "Kasper", role: "Box Coach & Groepslessen", classes: "Boxing, Kickboxing", char: "Gevoel voor taal, Inspirator", quote: "Vloeiend bewegen.", image: "/images/kasper.png" },
               ].map((member, i) => (
-                <div key={i} className="bg-surface-low border border-outline-variant p-6 lg:p-8 hover:border-primary-container hover:bg-surface transition-all duration-300 group flex flex-col h-full shadow-[0_10px_30px_rgba(27,27,27,0.2)] relative overflow-hidden">
+                <div key={i} className="bg-surface-low border border-outline-variant p-6 lg:p-8 hover:border-primary-container hover:bg-surface transition-all duration-300 group flex flex-col h-full shadow-[0_10px_30px_rgba(27,27,27,0.2)] relative overflow-hidden min-w-[85vw] sm:min-w-[45vw] md:min-w-0 shrink-0 snap-center">
                   <div className="flex justify-between items-start mb-6 relative z-10">
                     <div>
                       <h4 className="font-display font-black uppercase text-2xl text-on-surface mb-1">{member.name}</h4>
@@ -435,6 +474,16 @@ export default function App() {
             </div>
 
             <div className="relative">
+              {/* Interactive Scroll Progress Indicator */}
+              <div className="md:hidden mt-2 mb-6 flex justify-center">
+                <div className="w-16 h-1.5 bg-surface-highest rounded-full overflow-hidden relative border border-outline-variant/30">
+                  <div 
+                    className="absolute top-0 bottom-0 left-0 bg-primary-container rounded-full w-1/2 transition-transform duration-100 ease-out"
+                    style={{ transform: `translateX(${scrollProgressMain * 100}%)` }}
+                  />
+                </div>
+              </div>
+
               <AnimatePresence mode="wait">
                 {/* 6 Maanden Grid */}
                 {billingCycle === "6" && (
@@ -444,24 +493,33 @@ export default function App() {
                     animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                     exit={{ opacity: 0, x: 20, filter: "blur(4px)" }}
                     transition={{ duration: 0.3 }}
-                    className="grid md:grid-cols-3 gap-8 items-stretch pt-2 pb-6"
+                    className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 items-stretch pt-10 pb-12 overflow-x-auto snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                    onScroll={(e) => handleScrollProgress(e, setScrollProgressMain)}
                   >
                     {/* 1x per week */}
-                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full hover:border-primary-container transition-all duration-300 group shadow-[0_10px_30px_rgba(27,27,27,0.2)] hover:shadow-[0_20px_40px_rgba(192,27,27,0.15)] hover:-translate-y-2">
+                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
                       <div className="mb-4">
                         <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Groepsles 1 x per week</h3>
                         <div className="font-display text-5xl font-black text-on-surface">€44<span className="text-2xl">,-</span><span className="text-sm text-machine-grey font-sans font-normal ml-2">/ mnd</span></div>
                       </div>
-                      <p className="text-machine-grey text-sm mb-12 flex-grow border-l-2 border-surface-highest pl-4 leading-relaxed">
+                      <p className="text-machine-grey text-sm mb-6 border-l-2 border-surface-highest pl-4 leading-relaxed">
                         Na 6 maanden maandelijks opzegbaar.
                       </p>
-                      <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
-                        Kies mijn plan!
-                      </button>
+                      <ul className="flex flex-col gap-2 mb-10 text-sm text-machine-grey flex-grow">
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Kleine groepen</li>
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Deskundige begeleiding</li>
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Inclusief schema's</li>
+                      </ul>
+                      <div className="mt-auto">
+                        <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
+                          Kies mijn plan!
+                        </button>
+                        <div className="mt-3 flex items-center justify-center gap-1.5 text-[0.75rem] text-machine-grey"><Lock size={12} /> Veilig online inschrijven</div>
+                      </div>
                     </div>
 
                     {/* 2x per week */}
-                    <div className="bg-surface-high p-8 border border-primary-container flex flex-col h-full hover:border-primary transition-all duration-300 group shadow-[0_20px_40px_rgba(161,29,29,0.15)] hover:shadow-[0_25px_50px_rgba(192,27,27,0.25)] relative transform md:-translate-y-4 hover:-translate-y-6">
+                    <div className="bg-surface-high p-8 border border-primary-container flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary transition-all duration-300 group shadow-md hover:shadow-2xl relative transform md:-translate-y-4 hover:-translate-y-[5px] md:hover:-translate-y-[21px]">
                       <div className="absolute top-0 right-0 bg-primary-container text-white text-xs font-bold uppercase tracking-widest px-3 py-1 -translate-y-1/2 translate-x-[-24px]">
                         Meest gekozen!
                       </div>
@@ -469,26 +527,42 @@ export default function App() {
                         <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Groepsles 2 x per week</h3>
                         <div className="font-display text-5xl font-black text-on-surface">€64<span className="text-2xl">,-</span><span className="text-sm text-machine-grey font-sans font-normal ml-2">/ mnd</span></div>
                       </div>
-                      <p className="text-machine-grey text-sm mb-12 flex-grow border-l-2 border-primary-container pl-4 leading-relaxed">
+                      <p className="text-machine-grey text-sm mb-6 border-l-2 border-primary-container pl-4 leading-relaxed">
                         Na 6 maanden maandelijks opzegbaar.
                       </p>
-                      <button className="w-full py-5 px-4 bg-gradient-to-br from-primary to-primary-container text-white font-bold uppercase tracking-widest transition-opacity hover:opacity-90 text-sm leading-[1.6]">
-                        Kies mijn plan!
-                      </button>
+                      <ul className="flex flex-col gap-2 mb-10 text-sm text-machine-grey flex-grow">
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Kleine groepen</li>
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Deskundige begeleiding</li>
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Inclusief schema's</li>
+                      </ul>
+                      <div className="mt-auto">
+                        <button className="w-full py-5 px-4 bg-gradient-to-br from-primary to-primary-container text-white font-bold uppercase tracking-widest transition-opacity hover:opacity-90 text-sm leading-[1.6]">
+                          Kies mijn plan!
+                        </button>
+                        <div className="mt-3 flex items-center justify-center gap-1.5 text-[0.75rem] text-machine-grey"><Lock size={12} /> Veilig online inschrijven</div>
+                      </div>
                     </div>
 
                     {/* Onbeperkt */}
-                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full hover:border-primary-container transition-all duration-300 group shadow-[0_10px_30px_rgba(27,27,27,0.2)] hover:shadow-[0_20px_40px_rgba(192,27,27,0.15)] hover:-translate-y-2">
+                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
                       <div className="mb-4">
                         <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Groepsles onbeperkt</h3>
                         <div className="font-display text-5xl font-black text-on-surface">€74<span className="text-2xl">,-</span><span className="text-sm text-machine-grey font-sans font-normal ml-2">/ mnd</span></div>
                       </div>
-                      <p className="text-machine-grey text-sm mb-12 flex-grow border-l-2 border-surface-highest pl-4 leading-relaxed">
+                      <p className="text-machine-grey text-sm mb-6 border-l-2 border-surface-highest pl-4 leading-relaxed">
                         Na 6 maanden maandelijks opzegbaar.
                       </p>
-                      <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
-                        Kies mijn plan!
-                      </button>
+                      <ul className="flex flex-col gap-2 mb-10 text-sm text-machine-grey flex-grow">
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Kleine groepen</li>
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Deskundige begeleiding</li>
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Inclusief schema's</li>
+                      </ul>
+                      <div className="mt-auto">
+                        <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
+                          Kies mijn plan!
+                        </button>
+                        <div className="mt-3 flex items-center justify-center gap-1.5 text-[0.75rem] text-machine-grey"><Lock size={12} /> Veilig online inschrijven</div>
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -501,38 +575,55 @@ export default function App() {
                     animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                     exit={{ opacity: 0, x: -20, filter: "blur(4px)" }}
                     transition={{ duration: 0.3 }}
-                    className="grid md:grid-cols-3 gap-8 items-stretch pt-2 pb-6"
+                    className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 items-stretch pt-10 pb-12 overflow-x-auto snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                    onScroll={(e) => handleScrollProgress(e, setScrollProgressMain)}
                   >
                     {/* 1x per week */}
-                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full hover:border-primary-container transition-all duration-300 group shadow-[0_10px_30px_rgba(27,27,27,0.2)] hover:shadow-[0_20px_40px_rgba(192,27,27,0.15)] hover:-translate-y-2">
+                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
                       <div className="mb-4">
                         <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Groepsles 1 x per week</h3>
                         <div className="font-display text-5xl font-black text-on-surface">€41,50<span className="text-sm text-machine-grey font-sans font-normal ml-2">/ mnd</span></div>
                       </div>
-                      <p className="text-machine-grey text-sm mb-12 flex-grow border-l-2 border-surface-highest pl-4 leading-relaxed">
+                      <p className="text-machine-grey text-sm mb-6 border-l-2 border-surface-highest pl-4 leading-relaxed">
                         Na 12 maanden maandelijks opzegbaar.
                       </p>
-                      <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
-                        Kies mijn plan!
-                      </button>
+                      <ul className="flex flex-col gap-2 mb-10 text-sm text-machine-grey flex-grow">
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Kleine groepen</li>
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Deskundige begeleiding</li>
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Inclusief schema's</li>
+                      </ul>
+                      <div className="mt-auto">
+                        <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
+                          Kies mijn plan!
+                        </button>
+                        <div className="mt-3 flex items-center justify-center gap-1.5 text-[0.75rem] text-machine-grey"><Lock size={12} /> Veilig online inschrijven</div>
+                      </div>
                     </div>
 
                     {/* 2x per week */}
-                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full hover:border-primary-container transition-all duration-300 group shadow-[0_10px_30px_rgba(27,27,27,0.2)] hover:shadow-[0_20px_40px_rgba(192,27,27,0.15)] hover:-translate-y-2">
+                    <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
                       <div className="mb-4">
                         <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Groepsles 2 x per week</h3>
                         <div className="font-display text-5xl font-black text-on-surface">€61,50<span className="text-sm text-machine-grey font-sans font-normal ml-2">/ mnd</span></div>
                       </div>
-                      <p className="text-machine-grey text-sm mb-12 flex-grow border-l-2 border-surface-highest pl-4 leading-relaxed">
+                      <p className="text-machine-grey text-sm mb-6 border-l-2 border-surface-highest pl-4 leading-relaxed">
                         Na 12 maanden maandelijks opzegbaar.
                       </p>
-                      <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
-                        Kies mijn plan!
-                      </button>
+                      <ul className="flex flex-col gap-2 mb-10 text-sm text-machine-grey flex-grow">
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Kleine groepen</li>
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Deskundige begeleiding</li>
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Inclusief schema's</li>
+                      </ul>
+                      <div className="mt-auto">
+                        <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
+                          Kies mijn plan!
+                        </button>
+                        <div className="mt-3 flex items-center justify-center gap-1.5 text-[0.75rem] text-machine-grey"><Lock size={12} /> Veilig online inschrijven</div>
+                      </div>
                     </div>
 
                     {/* Onbeperkt (Highlighted bij 12 maanden) */}
-                    <div className="bg-surface-high p-8 border border-primary-container flex flex-col h-full hover:border-primary transition-all duration-300 group shadow-[0_20px_40px_rgba(161,29,29,0.15)] hover:shadow-[0_25px_50px_rgba(192,27,27,0.25)] relative transform md:-translate-y-4 hover:-translate-y-6">
+                    <div className="bg-surface-high p-8 border border-primary-container flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary transition-all duration-300 group shadow-md hover:shadow-2xl relative transform md:-translate-y-4 hover:-translate-y-[5px] md:hover:-translate-y-[21px]">
                       <div className="absolute top-0 right-0 bg-primary-container text-white text-xs font-bold uppercase tracking-widest px-3 py-1 -translate-y-1/2 translate-x-[-24px]">
                         Meeste voordeel!
                       </div>
@@ -540,12 +631,20 @@ export default function App() {
                         <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Groepsles onbeperkt</h3>
                         <div className="font-display text-5xl font-black text-on-surface">€71,50<span className="text-sm text-machine-grey font-sans font-normal ml-2">/ mnd</span></div>
                       </div>
-                      <p className="text-machine-grey text-sm mb-12 flex-grow border-l-2 border-primary-container pl-4 leading-relaxed">
+                      <p className="text-machine-grey text-sm mb-6 border-l-2 border-primary-container pl-4 leading-relaxed">
                         Na 12 maanden maandelijks opzegbaar.
                       </p>
-                      <button className="w-full py-5 px-4 bg-gradient-to-br from-primary to-primary-container text-white font-bold uppercase tracking-widest transition-opacity hover:opacity-90 text-sm leading-[1.6]">
-                        Kies mijn plan!
-                      </button>
+                      <ul className="flex flex-col gap-2 mb-10 text-sm text-machine-grey flex-grow">
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Kleine groepen</li>
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Deskundige begeleiding</li>
+                        <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Inclusief schema's</li>
+                      </ul>
+                      <div className="mt-auto">
+                        <button className="w-full py-5 px-4 bg-gradient-to-br from-primary to-primary-container text-white font-bold uppercase tracking-widest transition-opacity hover:opacity-90 text-sm leading-[1.6]">
+                          Kies mijn plan!
+                        </button>
+                        <div className="mt-3 flex items-center justify-center gap-1.5 text-[0.75rem] text-machine-grey"><Lock size={12} /> Veilig online inschrijven</div>
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -554,55 +653,89 @@ export default function App() {
           </div>
 
           {/* Subheader: Tijdelijke opties (Nu Deel 2) */}
-          <div className="mb-8 font-sans font-bold text-machine-grey uppercase tracking-widest flex items-center gap-4">
+          <div className="mb-4 md:mb-8 font-sans font-bold text-machine-grey uppercase tracking-widest flex items-center gap-4">
             <span className="w-8 h-[2px] bg-primary-container"></span>
             Tijdelijke Opties & Losse Lessen
           </div>
+          
+          {/* Interactive Scroll Progress Indicator */}
+          <div className="md:hidden mb-6 flex items-center">
+            <div className="w-16 h-1.5 bg-surface-highest rounded-full overflow-hidden relative border border-outline-variant/30">
+              <div 
+                className="absolute top-0 bottom-0 left-0 bg-primary-container rounded-full w-1/2 transition-transform duration-100 ease-out"
+                style={{ transform: `translateX(${scrollProgressTemp * 100}%)` }}
+              />
+            </div>
+          </div>
 
-          <div className="grid md:grid-cols-3 gap-8 items-stretch">
+          <div 
+            className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 items-stretch pt-2 md:pt-10 pb-12 overflow-x-auto snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            onScroll={(e) => handleScrollProgress(e, setScrollProgressTemp)}
+          >
             {/* Kaart 1: Weekkaart */}
-            <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full hover:border-primary-container transition-all duration-300 group shadow-[0_10px_30px_rgba(27,27,27,0.2)]">
+            <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
               <div className="mb-4">
-                <div className="text-primary-container text-xs font-bold uppercase tracking-widest mb-3">Module 01</div>
                 <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Weekkaart 7 x pwk sporten</h3>
                 <div className="font-display text-5xl font-black text-on-surface">€37,50</div>
               </div>
-              <p className="text-machine-grey text-sm mb-12 flex-grow border-l-2 border-surface-highest pl-4 leading-relaxed">
+              <p className="text-machine-grey text-sm mb-6 border-l-2 border-surface-highest pl-4 leading-relaxed">
                 7 dagen geldig.<br />Een weekpas om 7 dagen te sporten.
               </p>
-              <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
-                Kies mijn plan!
-              </button>
+              <ul className="flex flex-col gap-2 mb-10 text-sm text-machine-grey flex-grow">
+                <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Kleine groepen</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Deskundige begeleiding</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Inclusief schema's</li>
+              </ul>
+              <div className="mt-auto">
+                <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
+                  Kies mijn plan!
+                </button>
+                <div className="mt-3 flex items-center justify-center gap-1.5 text-[0.75rem] text-machine-grey"><Lock size={12} /> Veilig online inschrijven</div>
+              </div>
             </div>
 
             {/* Kaart 2: Losse les */}
-            <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full hover:border-primary-container transition-all duration-300 group shadow-[0_10px_30px_rgba(27,27,27,0.2)]">
+            <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
               <div className="mb-4">
-                <div className="text-primary-container text-xs font-bold uppercase tracking-widest mb-3">Module 02</div>
                 <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Losse les 1 x sporten</h3>
                 <div className="font-display text-5xl font-black text-on-surface">€16,50</div>
               </div>
-              <p className="text-machine-grey text-sm mb-12 flex-grow border-l-2 border-surface-highest pl-4 leading-relaxed">
+              <p className="text-machine-grey text-sm mb-6 border-l-2 border-surface-highest pl-4 leading-relaxed">
                 3 weken geldig.<br />Gewoon eens een losse les meedoen? Koop dan deze kaart.
               </p>
-              <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
-                Kies mijn plan!
-              </button>
+              <ul className="flex flex-col gap-2 mb-10 text-sm text-machine-grey flex-grow">
+                <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Kleine groepen</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Deskundige begeleiding</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Inclusief schema's</li>
+              </ul>
+              <div className="mt-auto">
+                <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
+                  Kies mijn plan!
+                </button>
+                <div className="mt-3 flex items-center justify-center gap-1.5 text-[0.75rem] text-machine-grey"><Lock size={12} /> Veilig online inschrijven</div>
+              </div>
             </div>
 
             {/* Kaart 3: Knipkaart */}
-            <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full hover:border-primary-container transition-all duration-300 group shadow-[0_10px_30px_rgba(27,27,27,0.2)]">
+            <div className="bg-surface p-8 border border-outline-variant flex flex-col h-full min-w-[85vw] sm:min-w-[60vw] md:min-w-0 shrink-0 snap-center hover:border-primary-container transition-all duration-300 group shadow-md hover:-translate-y-[5px] hover:shadow-2xl">
               <div className="mb-4">
-                <div className="text-primary-container text-xs font-bold uppercase tracking-widest mb-3">Module 03</div>
                 <h3 className="font-display text-2xl font-bold uppercase tracking-tighter mb-4 text-on-surface min-h-[4rem]">Knipkaart 5 x sporten</h3>
                 <div className="font-display text-5xl font-black text-on-surface">€77,50<span className="text-2xl">,-</span></div>
               </div>
-              <p className="text-machine-grey text-sm mb-12 flex-grow border-l-2 border-surface-highest pl-4 leading-relaxed">
+              <p className="text-machine-grey text-sm mb-6 border-l-2 border-surface-highest pl-4 leading-relaxed">
                 6 maanden geldig.<br />Een knipkaart voor 5 groepslessen naar keuze.
               </p>
-              <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
-                Kies mijn plan!
-              </button>
+              <ul className="flex flex-col gap-2 mb-10 text-sm text-machine-grey flex-grow">
+                <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Kleine groepen</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Deskundige begeleiding</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-primary-container shrink-0" /> Inclusief schema's</li>
+              </ul>
+              <div className="mt-auto">
+                <button className="w-full py-5 px-4 bg-surface-highest text-on-surface font-bold uppercase tracking-widest border border-transparent group-hover:bg-primary-container group-hover:text-white transition-all text-sm leading-[1.6]">
+                  Kies mijn plan!
+                </button>
+                <div className="mt-3 flex items-center justify-center gap-1.5 text-[0.75rem] text-machine-grey"><Lock size={12} /> Veilig online inschrijven</div>
+              </div>
             </div>
           </div>
 
@@ -738,7 +871,7 @@ export default function App() {
               {/* Foto 1 - Achterste foto */}
               <div className="absolute top-0 right-0 w-[80%] h-[80%] bg-surface-low border border-outline-variant overflow-hidden">
                 <img 
-                  src="/nieuw-pand-1.jpeg" 
+                  src="/images/nieuw-pand-1.jpeg" 
                   alt="Blauwdruk nieuw pand Word Fitter" 
                   className="w-full h-full object-cover grayscale opacity-70 mix-blend-luminosity group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-out"
                 />
@@ -747,7 +880,7 @@ export default function App() {
               {/* Foto 2 - Voorste overlappende foto */}
               <div className="absolute bottom-0 left-0 w-[60%] h-[60%] bg-surface border-t-8 border-r-8 border-surface overflow-hidden shadow-[20px_-20px_40px_rgba(27,27,27,0.6)]">
                 <img 
-                  src="/nieuw-pand-2.jpeg" 
+                  src="/images/nieuw-pand-2.jpeg" 
                   alt="Constructies nieuw pand Word Fitter" 
                   className="w-full h-full object-cover grayscale opacity-70 mix-blend-luminosity group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 delay-100 ease-out"
                 />
@@ -1044,7 +1177,7 @@ export default function App() {
             {/* Logo & Info */}
             <div className="md:col-span-1">
               <a href="#home" className="inline-block mb-6">
-                <img src="/logo.png" alt="Word Fitter Logo" className="h-10 md:h-12 object-contain" />
+                <img src="/images/logo.png" alt="Word Fitter Logo" className="h-10 md:h-12 object-contain" />
               </a>
               <p className="text-machine-grey text-sm mb-6 max-w-sm leading-relaxed">
                 Word Fitter Groningen. Serieus werken aan jouw fitheid, met oprechte aandacht en een flinke dosis werkplezier.
