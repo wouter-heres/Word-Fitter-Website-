@@ -35,6 +35,7 @@ export default function App() {
   const [scrollProgressOfferings, setScrollProgressOfferings] = useState(0);
   const [scrollProgressReviews, setScrollProgressReviews] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const reviewsSliderRef = useRef<HTMLDivElement>(null);
 
   const handleScrollProgress = (e: React.UIEvent<HTMLDivElement>, setProgress: React.Dispatch<React.SetStateAction<number>>) => {
     const el = e.currentTarget;
@@ -50,6 +51,13 @@ export default function App() {
     if (sliderRef.current) {
       const scrollAmount = direction === "left" ? -400 : 400;
       sliderRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
+  const slideReviews = (direction: "left" | "right") => {
+    if (reviewsSliderRef.current) {
+      const scrollAmount = direction === "left" ? -400 : 400;
+      reviewsSliderRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
 
@@ -439,10 +447,33 @@ export default function App() {
             </h2>
           </div>
 
-          <div 
-            className="flex overflow-x-auto snap-x snap-mandatory pt-4 pb-8 -mx-6 px-6 md:mx-0 md:px-0 gap-6 lg:gap-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-            onScroll={(e) => handleScrollProgress(e, setScrollProgressReviews)}
-          >
+          <div className="relative group/reviews">
+            {/* Custom Navigation */}
+            <div className="absolute top-1/2 -translate-y-1/2 -left-4 xl:-left-12 z-20 opacity-0 group-hover/reviews:opacity-100 transition-opacity duration-300 hidden md:block">
+              <button 
+                onClick={() => slideReviews("left")}
+                className="bg-surface-highest text-on-surface hover:bg-primary-container hover:text-white p-4 border border-outline-variant transition-colors"
+                aria-label="Scroll Links"
+              >
+                <ChevronLeft size={24} />
+              </button>
+            </div>
+            
+            <div className="absolute top-1/2 -translate-y-1/2 -right-4 xl:-right-12 z-20 opacity-0 group-hover/reviews:opacity-100 transition-opacity duration-300 hidden md:block">
+              <button 
+                onClick={() => slideReviews("right")}
+                className="bg-surface-highest text-on-surface hover:bg-primary-container hover:text-white p-4 border border-outline-variant transition-colors"
+                aria-label="Scroll Rechts"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </div>
+
+            <div 
+              ref={reviewsSliderRef}
+              className="flex overflow-x-auto snap-x snap-mandatory pt-4 pb-8 -mx-6 px-6 md:mx-0 md:px-0 gap-6 lg:gap-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth"
+              onScroll={(e) => handleScrollProgress(e, setScrollProgressReviews)}
+            >
             {/* Kaart 1 */}
             <div className="bg-white p-6 rounded-[10px] shadow-sm hover:shadow-md transition-shadow duration-300 w-[85vw] sm:w-[320px] shrink-0 snap-center border border-gray-100 flex flex-col h-full">
               <div className="flex justify-between items-start mb-3">
@@ -547,6 +578,7 @@ export default function App() {
                 Ze weten sport goed te combineren met gedragsverandering. Persoonlijk en professioneel. Ik verwijs regelmatig mensen vanuit mijn psychologenpraktijk door. Aanrader!
               </p>
             </div>
+          </div>
           </div>
 
           {/* Interactive Scroll Progress Indicator (Desktop & Mobile) */}
